@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1 class="my-4 text-center titulo">
-            <p>Inventário de Resultados</p> 
+            <p>Inventário de Sessão</p> 
         </h1>
         <div class="d-flex justify-content-between">
             @php
@@ -17,33 +17,33 @@
             <h3 class="text-end text">Cliente: <span class="destaqueII">{{$relatorios[0]['paciente']}}</span></h3>
         </div>
 
-        <h4 class="text-center destaque">Individualmente</h4>
+        <h4 class="text-center destaque">Relação com o Terapeuta</h4>
         <div class="result-section">
             <div class="result-details"> 
                 @foreach ($relatorios as $relatorio)
                     <div class="individual-result">
-                        <span class="result-span bg-cinza">{{$relatorio['ir']->individualmente}}</span>
+                        <span class="result-span bg-cinza">{{$relatorio['is']->relacaoTerapeuta}}</span>
                     </div>
                 @endforeach
             </div>
         </div>
-        <h4 class="text-center destaque">Com outras Pessoas</h4>
+        <h4 class="text-center destaque">Metas e Temas</h4>
         <div class="result-section">
             <div class="result-details"> 
                 @foreach ($relatorios as $relatorio)
                     <div class="other-people-result">
-                        <span class="result-span bg-cinza">{{$relatorio['ir']->outrasPessoas}}</span>
+                        <span class="result-span bg-cinza">{{$relatorio['is']->metasTemas}}</span>
                     </div>
                 @endforeach
             </div>
         </div>
 
-        <h4 class="text-center destaque">Socialmente</h4>
+        <h4 class="text-center destaque">Metodo e Forma</h4>
         <div class="result-section">
             <div class="result-details"> 
                 @foreach ($relatorios as $relatorio)
                     <div class="social-result">
-                        <span class="result-span bg-cinza">{{$relatorio['ir']->socialmente}}</span>
+                        <span class="result-span bg-cinza">{{$relatorio['is']->metodoForma}}</span>
                     </div>
                 @endforeach
             </div>
@@ -54,7 +54,7 @@
             <div class="result-details"> 
                 @foreach ($relatorios as $relatorio)
                     <div class="global-result">
-                        <span class="result-span bg-cinza">{{$relatorio['ir']->resultadoGlobal}}</span>
+                        <span class="result-span bg-cinza">{{$relatorio['is']->sessaoGlobal}}</span>
                     </div>
                 @endforeach
             </div>
@@ -68,6 +68,7 @@
             align-items: center;
             justify-content: center;
             height: 100%; /* Garante que o corpo da página ocupa 100% da altura da viewport */
+
         }
 
         .container {
@@ -75,7 +76,6 @@
             width: 100%;
             padding: 0px 20px 20px 20px; /* Adiciona algum espaçamento interno ao container */
             border-radius: 8px;
-            
         }
 
         h1 p{

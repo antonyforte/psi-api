@@ -1,75 +1,57 @@
-@extends('layouts.form')
-
 <style>
 
-    body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    }
-
-    .row-span-2 {
-        flex: 1;
-        padding: 20 60 0 40;
-        display: block;
-    }
-
-    h1 {
-        font: bold;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    }
-
-    .text-imput {
-        margin-top: 160px;
-        width: 50%;
-    }
-
-    .form-label {
-        margin-bottom: 10px;
-        color: blue;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        font-size: 22px;
-    }
-
-    .form-control {
-        margin-top: 20px;
-    }
-
-
-    .btn-send{
-        margin-top: auto;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        text-align: end;
-        height: 400px;
-        
-    }
-
-    .btn-primary {
+    .container {
         margin-top: 50px;
     }
 
+    .card {
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+    }
 
+    .card-header {
+        background-color: #28a745;
+        color: white;
+        border-bottom: 0;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
 </style>
 
-
-<div class="row-span-3">
-    <div>
-        <h1>Novo Paciente</h1>
-    </div>
-    <form action="/dashboard/p" method="POST">
-        @csrf
-        <div class="text-imput">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Nome completo do Paciente</label>
-                <input type="text" name="nome" class="form-control" id="nome" placeholder="Insira o nome aqui">
+@extends('layouts.form')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Cadastrar Paciente</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/dashboard/p" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome completo do Paciente</label>
+                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Insira o nome aqui" required>
+                        </div>
+                        <div class="text-end">
+                            <input type="submit" class="btn btn-success" value="Cadastrar">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="btn-send">
-            <input type="submit" class="btn btn-success" value="Cadastrar">
-        </div>
-    </form>
+    </div>
 </div>

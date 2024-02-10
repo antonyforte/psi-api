@@ -18,9 +18,20 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SessaoController;
 use App\Http\Controllers\IrController;
 use App\Http\Controllers\IsController;
+use App\Http\Controllers\CustomController;
+
+use App\Http\Middleware\CustomAuthMiddleware;
+
 
 //PAGINA INICIAL
 Route::get('/', [TerapeutaController::class, 'index']);
+
+Route::middleware([CustomAuthMiddleware::class])->group(function () {
+    Route::post('/registerauthmiddleware', [CustomController::class, 'authenticate']);
+    // ... outras rotas aqui
+});
+
+Route::get('/authmiddle',[CustomController::class, 'showRegisterForm']);
 
 
 //PAGINA FORMULARIO IR
@@ -85,6 +96,16 @@ Route::middleware([
 
 
 
+
+
+
+
+
+
+
+
+
+
 // CRIAR PACIENTES
 Route::middleware([
     'auth:sanctum',
@@ -105,6 +126,7 @@ Route::middleware([
 
 //RESULTADOS DOS FORMS DO PACIENTE X
 Route::get('/pacientes/{pacient_id}/resultados', [SessaoController::class, 'showResults'])->name('pacientes.resultados');
+Route::get('/pacientes/{pacient_id}/resultadosII', [SessaoController::class, 'showResultsII'])->name('pacientes.resultadosII');
 
 //LISTA DE SESSOES FEITAS POR TERAPEUTA X
 Route::get('/sessoes/{therapist_id}', [SessaoController::class, 'listSessions'])->name('list-sessions');

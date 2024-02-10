@@ -25,7 +25,10 @@
                                         </div>
                                     </td>
                                     <td style="width: 100%; height: 108px;">
-                                        <a href="{{ route('pacientes.resultados', ['pacient_id' => $pacient->id]) }}" class="btn btn-primary">Ação</a>
+                                        <a href="{{ route('pacientes.resultados', ['pacient_id' => $pacient->id]) }}" class="btn btn-primary">IR</a>
+                                    </td>
+                                    <td style="width: 100%; height: 108px;">
+                                        <a href="{{ route('pacientes.resultadosII', ['pacient_id' => $pacient->id]) }}" class="btn btn-primary">IS</a>
                                     </td>
                                 </tr>
                             @endforeach

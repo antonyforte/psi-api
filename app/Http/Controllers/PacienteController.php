@@ -51,6 +51,11 @@ class PacienteController extends Controller
         $token = Hash::make($request->nome);
         $pacient->token = substr($token, 7, 20);
 
+        $therapistId = Auth::user()->therapist_id;
+
+        $pacient->therapist_id = $therapistId;
+
+
 
         $pacient->save();
 

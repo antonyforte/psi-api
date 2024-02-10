@@ -22,14 +22,14 @@ class IsController extends Controller
 
         if ($is) {
             $is->update([
-                'relacaoTerapeuta' => ($validatedData['relacaoTerapeuta'] % 20 == 0 || $validatedData['relacaoTerapeuta'] == 0) ? intval($validatedData['relacaoTerapeuta'] / 20) + 1 : intval($validatedData['relacaoTerapeuta'] / 20) + 1,
-                'metasTemas' => ($validatedData['metasTemas'] % 20 == 0 || $validatedData['metasTemas'] == 0) ? intval($validatedData['metasTemas'] / 20) + 1 : intval($validatedData['metasTemas'] / 20) + 1,
-                'metodoForma' => ($validatedData['metodoForma'] % 20 == 0 || $validatedData['metodoForma'] == 0) ? intval($validatedData['metodoForma'] / 20) + 1 : intval($validatedData['metodoForma'] / 20) + 1,
-                'sessaoGlobal' => ($validatedData['sessaoGlobal'] % 20 == 0 || $validatedData['sessaoGlobal'] == 0) ? intval($validatedData['sessaoGlobal'] / 20) + 1 : intval($validatedData['sessaoGlobal'] / 20) + 1,
+                'relacaoTerapeuta' => ($validatedData['relacaoTerapeuta'] % 25 == 0 || $validatedData['relacaoTerapeuta'] == 0) ? intval($validatedData['relacaoTerapeuta'] / 25) + 1 : intval($validatedData['relacaoTerapeuta'] / 25) + 1,
+                'metasTemas' => ($validatedData['metasTemas'] % 25 == 0 || $validatedData['metasTemas'] == 0) ? intval($validatedData['metasTemas'] / 25) + 1 : intval($validatedData['metasTemas'] / 25) + 1,
+                'metodoForma' => ($validatedData['metodoForma'] % 25 == 0 || $validatedData['metodoForma'] == 0) ? intval($validatedData['metodoForma'] / 25) + 1 : intval($validatedData['metodoForma'] / 25) + 1,
+                'sessaoGlobal' => ($validatedData['sessaoGlobal'] % 25 == 0 || $validatedData['sessaoGlobal'] == 0) ? intval($validatedData['sessaoGlobal'] / 25) + 1 : intval($validatedData['sessaoGlobal'] / 25) + 1,
             ]);
             
 
-            return redirect()->back()->with('success', 'Dados do Is foram atualizados com sucesso.');
+            return redirect('success');
         }
 
 

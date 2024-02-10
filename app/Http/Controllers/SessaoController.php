@@ -62,7 +62,9 @@ class SessaoController extends Controller
 
     public function create()
 {
-    $pacientes = $this->pacienteService->getAllPacientes()->sortBy('nome');
+    $therapistId = Auth::user()->therapist_id;
+
+    $pacientes = Pacient::where('therapist_id', $therapistId)->get();
 
     return view('forms.registersession', compact('pacientes'));
 }
@@ -146,7 +148,6 @@ class SessaoController extends Controller
         $relatorios = [];
         foreach ($sessoes as $sessao) {
             $ir = Ir::where('session_id', $sessao->id)->first();
-            $is = Is::where('session_id', $sessao->id)->first();
 
             $relatorios[] = [
                 'sessao_id' => $sessao->id,
@@ -154,11 +155,33 @@ class SessaoController extends Controller
                 'paciente' => $sessao->pacient->nome,
                 'terapeuta' => $sessao->therapist->nome,
                 'ir' => $ir,
-                'is' => $is,
             ];
         }
 
         return view('results', compact('relatorios'));
+    }
+
+    public function showResultsII($pacient_id){
+
+        $therapist_id = Auth::user()->therapist_id;
+        $sessoes = Session::where('pacient_id', $pacient_id)
+            ->where('therapist_id', $therapist_id)
+            ->get();
+
+        $relatorios = [];
+        foreach ($sessoes as $sessao) {
+            $is = Is::where('session_id', $sessao->id)->first();
+
+            $relatorios[] = [
+                'sessao_id' => $sessao->id,
+                'data' => $sessao->data,
+                'paciente' => $sessao->pacient->nome,
+                'terapeuta' => $sessao->therapist->nome,
+                'is' => $is,
+            ];
+        }
+
+        return view('resultsII', compact('relatorios'));
     }
 
     public function listSessions($therapist_id){

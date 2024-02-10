@@ -13,6 +13,9 @@ class Therapist extends Model
 
     protected $fillable = ['usuario'];
 
+    public function pacient() {
+        return $this->hasMany('App\Models\Pacient');
+    }
     public function sessions() {
         return $this->hasMany('App\Models\Session');
     }
