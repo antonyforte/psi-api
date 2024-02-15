@@ -29,7 +29,7 @@ class IsController extends Controller
             ]);
             
 
-            return redirect('success');
+            return view('success');
         }
 
 

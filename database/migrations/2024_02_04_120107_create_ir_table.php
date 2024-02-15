@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('socialmente');
             $table->integer('resultadoGlobal');
 
-            $table->foreignId('session_id')->constrained('session');
+            $table->foreignId('session_id')->constrained('session')->onDelete('cascade');
             $table->timestamps();
         });
     }

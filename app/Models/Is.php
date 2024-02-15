@@ -13,5 +13,10 @@ class Is extends Model
 
     protected $fillable = ['session_id', 'relacaoTerapeuta', 'metasTemas', 'metodoForma', 'sessaoGlobal'];
 
+    public function session()
+    {
+        return $this->belongsTo(Session::class, 'session_id')->onDelete('cascade');
+    }
+
 
 }

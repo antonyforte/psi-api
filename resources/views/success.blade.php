@@ -27,7 +27,7 @@
 </head>
 <body>
     <div>
-        <h1>Envio Confirmado com Sucesso!</h1>
+        <h1>Enviado com Sucesso!</h1>
     </div>
 </body>
 </html>

@@ -28,7 +28,7 @@ class IrController extends Controller
             ]);
             
 
-            return redirect('success');
+            return view('success');
         }
 
 

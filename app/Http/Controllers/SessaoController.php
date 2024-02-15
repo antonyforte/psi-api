@@ -68,7 +68,10 @@ class SessaoController extends Controller
 
     return view('forms.registersession', compact('pacientes'));
 }
-
+    private function generateSecureToken($session_id) {
+        $secret_key = "Whatisneededtochangeapersonistochangetheirawarenessofthemselves";
+        return hash_hmac('sha256',$session_id,$secret_key);
+    }
     public function store(Request $request){
         $session = new Session;
 
@@ -79,63 +82,88 @@ class SessaoController extends Controller
 
         $session->save();
 
-        $ir = Ir::create([
-            'session_id' => (int)$session->id,
-            'individualmente' => 0,
-            'outrasPessoas' => 0,
-            'socialmente' => 0,
-            'resultadoGlobal' => 0,
-        ]);
+        $paciente = Pacient::find($request->paciente_id);
+        if ($paciente) {
+            $ir = Ir::create([
+                'session_id' => (int)$session->id,
+                'individualmente' => 0,
+                'outrasPessoas' => 0,
+                'socialmente' => 0,
+                'resultadoGlobal' => 0,
+            ]);
 
-        $is = Is::create([
-            'session_id' => (int)$session->id,
-            'relacaoTerapeuta' => 0,
-            'metasTemas' => 0,
-            'metodoForma' => 2,
-            'sessaoGlobal' => 0,
-    
-        ]);
-
-
+            $is = Is::create([
+                'session_id' => (int)$session->id,
+                'relacaoTerapeuta' => 0,
+                'metasTemas' => 0,
+                'metodoForma' => 2,
+                'sessaoGlobal' => 0,
         
-        return view('links', ['is' => $is, 'ir' => $ir]);
+            ]);
+
+
+            $token = $this->generateSecureToken($session->id);
+            return view('links', ['is' => $is, 'ir' => $ir, 'token' => $token]);
+        } else {
+            abort(404);
+        }
     }
 
     public function irshow(Request $request) {
         $session_id = $request->query('session_id');
+        $token = $request->query('token');
 
-        $ir = Ir::where('session_id',$session_id)->first();
-
-
-        $session = Session::find($session_id);
-
-        $pacient = Pacient::find($session->pacient_id)->nome;
-
-        $therapist = Therapist::find($session->therapist_id)->usuario;
-
-        $data = $session->data;
+        if(!$this->validateToken($session_id,$token)) {
+            abort(403,'Não autorizado');
+        }else{
+            $ir = Ir::where('session_id',$session_id)->first();
 
 
-        return view('forms.formir', ['pacient' => $pacient, 'therapist' => $therapist, 'data' => $data, 'ir' => $ir]);
+            $session = Session::find($session_id);
 
+            $pacient = Pacient::find($session->pacient_id)->nome;
+
+            $therapist = Therapist::find($session->therapist_id)->usuario;
+
+            $data = $session->data;
+
+
+            return view('forms.formir', ['pacient' => $pacient, 'therapist' => $therapist, 'data' => $data, 'ir' => $ir]);
+
+
+        }
+
+        
     }
     public function isshow(Request $request) {
         $session_id = $request->query('session_id');
+        $token = $request->query('token');
 
-        $is = Is::where('session_id',$session_id)->first();
-
-
-        $session = Session::find($session_id);
-
-        $pacient = Pacient::find($session->pacient_id)->nome;
-
-        $therapist = Therapist::find($session->therapist_id)->usuario;
-
-        $data = $session->data;
+        if(!$this->validateToken($session_id,$token)) {
+            abort(403,'Não autorizado');
+        }else{
+            $is = Is::where('session_id',$session_id)->first();
 
 
-        return view('forms.formis', ['pacient' => $pacient, 'therapist' => $therapist, 'data' => $data, 'is' => $is]);
+            $session = Session::find($session_id);
 
+            $pacient = Pacient::find($session->pacient_id)->nome;
+
+            $therapist = Therapist::find($session->therapist_id)->usuario;
+
+            $data = $session->data;
+
+
+            return view('forms.formis', ['pacient' => $pacient, 'therapist' => $therapist, 'data' => $data, 'is' => $is]);
+
+
+        }
+        
+    }
+
+    private function validateToken($session_id,$token){
+        $generatedToken = $this->generateSecureToken($session_id);
+        return hash_equals($generatedToken,$token);
     }
 
     public function showResults($pacient_id){
@@ -184,12 +212,13 @@ class SessaoController extends Controller
         return view('resultsII', compact('relatorios'));
     }
 
-    public function listSessions($therapist_id){
-        $sessions = Session::where('therapist_id', $therapist_id)->with('patient')->orderBy('date', 'desc')->get();
+    public function listSessions(){
+        $therapist_id = Auth::user()->therapist_id;
+        $sessions = Session::where('therapist_id', $therapist_id)->get();
         return view('list-sessions', ['sessions' => $sessions]);
     }
 
-    public function deleteSessions(){
+    public function deleteSessions($session_id){
         $session = Session::find($session_id);
 
         if ($session) {
@@ -198,6 +227,24 @@ class SessaoController extends Controller
         }
     
         return redirect()->back()->with('error', 'Erro ao excluir a sessão.');
+    
+
+    }
+    public function listPacients(){
+        $therapist_id = Auth::user()->therapist_id;
+        $pacients = Pacient::where('therapist_id', $therapist_id)->get();
+        return view('list-pacients', ['pacients' => $pacients]);
+    }
+
+    public function deletePacients($pacient_id){
+        $pacient = Pacient::find($pacient_id);
+
+        if ($pacient) {
+            $pacient->delete();
+            return redirect()->back()->with('success', 'Paciente excluído com sucesso.');
+        }
+    
+        return redirect()->back()->with('error', 'Erro ao excluir o Paciente.');
     
 
     }

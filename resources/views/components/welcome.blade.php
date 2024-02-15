@@ -25,9 +25,9 @@
                     </a>
                 </div>
                 <div style="flex: 1; text-align: end;">
-                    <!--<a href="/dashboard/s/sdelete" class="btn-link">  -->
-                        <button type="button" class="btn" disabled>Deletar Sessão</button>
-                    <!--</a> -->
+                    <a href="/dashboard/s/sdelete" class="btn-link"> 
+                        <button type="button" class="btn-custom">Deletar Sessão</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -60,9 +60,9 @@
                     </a>
                 </div>
                 <div style="flex: 1; text-align: end;">
-                    <!--<a href="" class="btn-link" @disabled(true)> -->
-                        <button type="button" class="btn" disabled>Deletar Paciente</button>
-                    <!--</a> -->
+                    <a href="/dashboard/p/pdelete">
+                        <button type="button" class="btn-custom">Deletar Paciente</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -110,6 +110,20 @@
         text-transform: uppercase;
         animation: anime 4s linear infinite;
         font-weight: 500;
+    }
+    .btn-custom {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 2px solid #dd0000;
+        background-color: #dd0000;
+        color: #ffffff;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .btn-custom:hover {
+        background-color: #990101;
+
     }
 
 </style>

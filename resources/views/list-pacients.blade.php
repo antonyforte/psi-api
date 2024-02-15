@@ -26,24 +26,22 @@
 <body>
 
 <div class="container">
-<h1 class="my-4">Lista de Sessões</h1>
+<h1 class="my-4">Lista de Pacientes</h1>
 
-@if (count($sessions) > 0)
+@if (count($pacients) > 0)
     <table class="table table-bordered">
         <thead class="thead-dark">
-            <tr>
-                <th>Data</th>
+            <tr>                
                 <th>Paciente</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($sessions as $session)
+            @foreach ($pacients as $pacient)
                 <tr>
-                    <td>{{ $session->data }}</td>
-                    <td>{{ $session->pacient_id ?? 'N/A' }}</td>
+                    <td>{{ $pacient->nome ?? 'N/A' }}</td>
                     <td>
-                        <form action="{{ route('delete-session', ['session_id' => $session->id]) }}" method="POST">
+                        <form action="{{ route('delete-pacient', ['pacient_id' => $pacient->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Excluir</button>
@@ -55,7 +53,7 @@
     </table>
 @else
     <div class="alert alert-info" role="alert">
-        Nenhuma sessão encontrada.
+        Nenhum paciente encontrado.
     </div>
 @endif
 </div>

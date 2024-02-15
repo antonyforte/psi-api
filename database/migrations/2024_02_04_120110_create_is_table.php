@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('metodoForma');
             $table->integer('sessaoGlobal');
 
-            $table->foreignId('session_id')->constrained('session');
+            $table->foreignId('session_id')->constrained('session')->onDelete('cascade');
             $table->timestamps();
         });
     }

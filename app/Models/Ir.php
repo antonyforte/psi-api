@@ -14,4 +14,9 @@ class Ir extends Model
 
     protected $fillable = ['session_id', 'individualmente', 'outrasPessoas', 'socialmente', 'resultadoGlobal'];
 
+    public function session()
+    {
+        return $this->belongsTo(Session::class, 'session_id')->onDelete('cascade');
+    }
+
 }

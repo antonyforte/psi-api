@@ -58,9 +58,16 @@ Route::middleware([
 });
 
 //PAGINA COM OS LINKS GERADOS AO CRIAR A SESSAO
-Route::get('/links',function() {
-    return view('links');
-})->name('links');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/links',function() {
+        return view('links');
+    })->name('links');
+});
+
 
 // CRIAR SESSÕES
 
@@ -125,15 +132,54 @@ Route::middleware([
 });
 
 //RESULTADOS DOS FORMS DO PACIENTE X
-Route::get('/pacientes/{pacient_id}/resultados', [SessaoController::class, 'showResults'])->name('pacientes.resultados');
-Route::get('/pacientes/{pacient_id}/resultadosII', [SessaoController::class, 'showResultsII'])->name('pacientes.resultadosII');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/pacientes/{pacient_id}/resultados', [SessaoController::class, 'showResults'])->name('pacientes.resultados');
+});
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/pacientes/{pacient_id}/resultadosII', [SessaoController::class, 'showResultsII'])->name('pacientes.resultadosII');
+});
 
 //LISTA DE SESSOES FEITAS POR TERAPEUTA X
-Route::get('/sessoes/{therapist_id}', [SessaoController::class, 'listSessions'])->name('list-sessions');
-
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard/s/sdelete', [SessaoController::class, 'listSessions'])->name('list-sessions');
+});
 //DELETE DAS SESSOES DO TERAPEUTA X
-Route::delete('/sessoes/{session_id}', [SessaoController::class, 'deleteSessions'])->name('delete-session');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::delete('/sessoes/{session_id}', [SessaoController::class, 'deleteSessions'])->name('delete-session');
+});
 
+//LISTA DE SESSOES FEITAS POR TERAPEUTA X
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard/p/pdelete', [SessaoController::class, 'listPacients'])->name('list-pacients');
+});
+//DELETE DAS SESSOES DO TERAPEUTA X
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::delete('/pacients/{pacient_id}', [SessaoController::class, 'deletePacients'])->name('delete-pacient');
+});
 
 
 
