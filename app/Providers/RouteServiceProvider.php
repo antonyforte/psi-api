@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Middleware\CustomAuthMiddleware;
-use App\Http\Controllers\CustomController;
+
 
 class RouteServiceProvider extends ServiceProvider
 {

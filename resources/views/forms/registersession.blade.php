@@ -82,7 +82,7 @@
                             <input type="datetime-local" class="form-control" id="date" name="date" required>
                         </div>
                         <div class="text-end">
-                            <input type="submit" class="btn btn-success" value="Salvar">
+                            <input type="submit" class="btn btn-success" value="Salvar" id="submitBtn" disabled>
                         </div>
                     </form>
                 </div>
@@ -96,5 +96,8 @@
         // Obtem o ID selecionado e atualiza o campo
         var selectedPacienteId = selectElement.value;
         document.getElementById('selectedPacienteId').innerText = selectedPacienteId;
+
+        var submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = !selectedPacienteId;
     }
 </script>

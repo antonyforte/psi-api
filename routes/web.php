@@ -18,21 +18,12 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SessaoController;
 use App\Http\Controllers\IrController;
 use App\Http\Controllers\IsController;
-use App\Http\Controllers\CustomController;
+use App\Actions\Fortify\CreateNewUser; 
 
-use App\Http\Middleware\CustomAuthMiddleware;
 
 
 //PAGINA INICIAL
 Route::get('/', [TerapeutaController::class, 'index']);
-
-Route::middleware([CustomAuthMiddleware::class])->group(function () {
-    Route::post('/registerauthmiddleware', [CustomController::class, 'authenticate']);
-    // ... outras rotas aqui
-});
-
-Route::get('/authmiddle',[CustomController::class, 'showRegisterForm']);
-
 
 //PAGINA FORMULARIO IR
 Route::get('/ir',[SessaoController::class, 'irshow'])->name('ir.show');
@@ -181,9 +172,16 @@ Route::middleware([
     Route::delete('/pacients/{pacient_id}', [SessaoController::class, 'deletePacients'])->name('delete-pacient');
 });
 
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->get('/register', function () {
+    return view('auth.register');
+})->name('register');
 
-
-
+// Rota padrão do Jetstream para o processamento do formulário de registro
+Route::post('/register', [Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'store']);
 
 
 

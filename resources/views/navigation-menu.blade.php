@@ -1,3 +1,4 @@
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto">
@@ -16,6 +17,12 @@
                     </x-nav-link>
                 </div>
             </div>
+            
+            @if(auth()->user()->name == 'admin')
+                <div class="p-4 mr-20">
+                    <a href="{{ route('register')}}" class="bg-orange-600 p-2.5 text-white rounded-md">Registrar Terapeuta</a>
+                </div>
+            @endif
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Teams Dropdown -->
