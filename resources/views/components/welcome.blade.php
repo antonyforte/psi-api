@@ -1,5 +1,8 @@
 <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
     <!-- CONTAINER DE SESSOES -->
+    @if(auth()->user()->name == 'admin')
+        <h2>Você está logado como admin, registre um terapeuta para poder utilizar o sistema.</h2>
+    @else
     <div class="row-span-2">
         <div class="p-6 lg:p-8 display-flex flex-ro">
             <div class="icones" style="display: flex; width: 100%; align-items: center;">
@@ -68,6 +71,8 @@
         </div>
         
 </div>
+    @endif
+
 
 <style>
     .rotating-cube {
