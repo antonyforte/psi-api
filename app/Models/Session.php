@@ -12,7 +12,7 @@ class Session extends Model
 
 
     public function pacient() {
-        return $this->belongsTo('App\Models\Pacient');
+        return $this->belongsTo('App\Models\Pacient', 'pacient_id');
     }
 
     public function therapist() {

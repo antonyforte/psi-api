@@ -67,7 +67,16 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard/s/sregister', [SessaoController::class, 'create'], [PacienteController::class, 'index'])->name('forms.registersession');
+    Route::get('/dashboard/sessoes/{pacient_id?}', [SessaoController::class, 'listSessions'])->name('sessions');
+});
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard/sessoes/{pacient_id?}/register', [SessaoController::class, 'create'])->name('forms.registersession');
 });
 
 //POST DAS SESSOES
@@ -76,23 +85,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::post('/dashboard/s',[SessaoController::class, 'store']);
+    Route::post('/dashboard/sessoes/register',[SessaoController::class, 'store']);
 });
-
-
-
-
-//LISTAGEM DOS PACIENTES
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/pacientes', [SessaoController::class, 'index'])->name('pacientes');
-});
-
-
-
 
 
 

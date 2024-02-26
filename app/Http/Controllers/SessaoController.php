@@ -32,7 +32,20 @@ class SessaoController extends Controller
     public function dashboard() {
         $therapist_id = Auth::user()->therapist_id;
 
-        return view('dashboard', compact('therapist_id'));
+        $pacients = Pacient::where('therapist_id', $therapist_id)->orderBy('nome')->get();
+
+        $sessions = Session::where('therapist_id', $therapist_id)->get();
+
+
+        foreach ($pacients as $pacient) {
+            $numSessoes = $sessions->where('pacient_id', $pacient->id)->count();
+            $ultimaSessao = $sessions->where('pacient_id', $pacient->id)->max('data');
+
+            $pacient->num_sessoes = $numSessoes;
+            $pacient->ultima_sessao = $ultimaSessao;
+        }
+
+        return view('dashboard2', ['therapist_id' => $therapist_id, 'pacients' => $pacients]);
 
     }
 
@@ -60,13 +73,16 @@ class SessaoController extends Controller
     }
 
 
-    public function create()
+    public function create($pacient_id)
 {
     $therapistId = Auth::user()->therapist_id;
 
-    $pacientes = Pacient::where('therapist_id', $therapistId)->get();
+    $pacientes = Pacient::where('id', $pacient_id)->first();
+    if(!$pacientes) {
+        return abort(404);
+    }
 
-    return view('forms.registersession', compact('pacientes'));
+    return view('forms.registersession', ['xtid' => $pacientes->id , 'nome' => $pacientes->nome]);
 }
     private function generateSecureToken($session_id) {
         $secret_key = "Whatisneededtochangeapersonistochangetheirawarenessofthemselves";
@@ -212,10 +228,19 @@ class SessaoController extends Controller
         return view('resultsII', compact('relatorios'));
     }
 
-    public function listSessions(){
+    public function listSessions($pacient_id){
         $therapist_id = Auth::user()->therapist_id;
-        $sessions = Session::where('therapist_id', $therapist_id)->get();
-        return view('list-sessions', ['sessions' => $sessions]);
+        $pacient = Pacient::where('id', $pacient_id)->first();
+        $sessions = Session::where('therapist_id', $therapist_id)->where('pacient_id', $pacient_id)->get();
+
+        if($sessions->count() == 0 ){
+            return redirect('/dashboard')->with('alert', "Não há sessões cadastradas para essse paciente");
+        }
+        foreach ($sessions as $session) {
+            $token = $this->generateSecureToken($session->id);
+            $tokens[$session->id] = $token;
+        }
+        return view('list-sessions', ['sessions' => $sessions, 'pacient' => $pacient, 'tokens' => $tokens]);
     }
 
     public function deleteSessions($session_id){
@@ -228,7 +253,6 @@ class SessaoController extends Controller
     
         return redirect()->back()->with('error', 'Erro ao excluir a sessão.');
     
-
     }
     public function listPacients(){
         $therapist_id = Auth::user()->therapist_id;

@@ -20,9 +20,9 @@
         text-decoration: none; /* Remove underline */
     }
     .bt-foot {
-        margin-top: 270px;
+        margin-top: 240px;
         width: 100%;
-        text-align: center;
+        text-align: start;
         display: flexbox;
     }
 </style>
@@ -47,7 +47,7 @@
 </div>
 <div class="bt-foot">
     <a href="/dashboard"> 
-        <button type="button" class="btn btn-custom" disabled>Voltar</button>
+        <button type="button" class="btn btn-custom" disabled> < Dashboard</button>
     </a>
 </div>
 </div>

@@ -29,6 +29,14 @@
         background-color: #218838;
         border-color: #1e7e34;
     }
+
+    .bt-foot {
+        margin-top: 40px;
+        width: 100%;
+        text-align: center;
+        display: flexbox;
+    }
+
 </style>
 
 @extends('layouts.form')
@@ -37,7 +45,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">Cadastrar Paciente</h4>
+                    <h1 class="mb-0">Cadastrar Paciente</h1>
                 </div>
                 <div class="card-body">
                     <form action="/dashboard/p" method="POST">
@@ -53,5 +61,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="bt-foot">
+        <a href="/dashboard"> 
+            <button type="button" class="btn btn-custom" disabled>< Voltar</button>
+        </a>
     </div>
 </div>
