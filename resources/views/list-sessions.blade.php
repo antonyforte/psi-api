@@ -126,8 +126,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>Data</th>
-                        <th>Link Inventário de Resultados</th>
-                        <th>Link Inventário de Sessão</th>
+                        <th>Inventário de Resultados</th>
+                        <th>Inventário de Sessão</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -138,7 +138,9 @@
                             <td><a href="{{ route('ir.show', ['session_id' => $session->id, 'token' => $tokens[$session->id]]) }}">{{ route('ir.show', ['session_id' => $session->id, 'token' => $tokens[$session->id]]) }}</a></td>
                             <td><a href="{{ route('is.show', ['session_id' => $session->id, 'token' => $tokens[$session->id]]) }}">{{ route('is.show', ['session_id' => $session->id, 'token' => $tokens[$session->id]]) }}</a></td>
                             <td class="btn-container">
-                                <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Excluir</button>
+                                <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                                    <ion-icon name="close" class="align-middle" ></ion-icon>
+                                </button>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                       <div class="modal-content">

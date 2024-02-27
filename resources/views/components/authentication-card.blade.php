@@ -1,6 +1,5 @@
 <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
     
-    <h1 class="mb-5 font-bold text-4xl font-serif">Login</h1>
     <div>
         {{ $logo }}
     </div>

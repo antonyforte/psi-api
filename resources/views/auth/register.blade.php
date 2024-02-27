@@ -1,3 +1,10 @@
+
+@if(session('alert'))
+    <div class="alert alert-danger" role="alert">
+        Nome duplicado, algum terapeuta já esta registrado com esse nome, por favor escolher um nome diferente.
+  </div>
+@endif
+
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
