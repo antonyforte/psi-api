@@ -51,6 +51,13 @@
     .selected-paciente{
         margin-left: 40px;
     }
+
+    .bt-foot {
+        margin-top: 40px;
+        width: 100%;
+        text-align: center;
+        display: flexbox;
+    }
 </style>
 
 <div class="container">
@@ -61,33 +68,37 @@
                     <h1 class="mb-0">Nova Sessão</h1>
                 </div>
                 <div class="card-body">
-                    <form action="/dashboard/s" method="POST">
+                    <form action="/dashboard/sessoes/register" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="exampleFormControlInput1" class="form-label">Selecionar Paciente</label>
+                            <label for="exampleFormControlInput1" class="form-label">Paciente</label>
                             <div class="d-flex">
-                                <select class="form-select" id="exampleFormControlInput1" name="paciente_id" onchange="updateSelectedPaciente(this)" required>
-                                    <option selected disabled>Selecione o paciente</option>
-                                    @foreach($pacientes as $paciente)
-                                        <option value="{{ $paciente->id }}">{{ $paciente->nome }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ $nome }}" readonly disabled>
+                        
+                                <input type="hidden" name="paciente_id" value="{{ $xtid }}">
+                        
                                 <div class="selected-paciente">
-                                    ID do Paciente: <span class="id-badge" id="selectedPacienteId"></span>
+                                    ID do Paciente: <span class="id-badge" id="selectedPacienteId">{{ $xtid }}</span>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="form-group">
                             <label for="exampleInputDate">Data da Sessão:</label>
                             <input type="datetime-local" class="form-control" id="date" name="date" required>
                         </div>
                         <div class="text-end">
-                            <input type="submit" class="btn btn-success" value="Salvar" id="submitBtn" disabled>
+                            <input type="submit" class="btn btn-success" value="Salvar" id="submitBtn">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="bt-foot">
+        <a href="/dashboard"> 
+            <button type="button" class="btn btn-custom" disabled>< Voltar</button>
+        </a>
     </div>
 </div>
 
@@ -98,6 +109,14 @@
         document.getElementById('selectedPacienteId').innerText = selectedPacienteId;
 
         var submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = !selectedPacienteId;
+        
     }
+
+    function setDefaultDateTime() {
+        var dateInput = document.getElementById('date');
+        var now = new Date().toISOString().slice(0,16);
+        dateInput.value = now;
+    }
+
+    setDefaultDateTime();
 </script>

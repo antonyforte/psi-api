@@ -14,10 +14,10 @@ class Therapist extends Model
     protected $fillable = ['usuario'];
 
     public function pacient() {
-        return $this->hasMany('App\Models\Pacient');
+        return $this->hasMany('App\Models\Pacient')->onDelete('cascade');
     }
     public function sessions() {
-        return $this->hasMany('App\Models\Session');
+        return $this->hasMany('App\Models\Session')->onDelete('cascade');
     }
 
     public function user() {

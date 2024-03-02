@@ -13,6 +13,10 @@
 
     <!-- Adicione os scripts do Bootstrap JS -->
     <script src="caminho/para/bootstrap.bundle.js"></script>
+    <!-- Add this script tag to include Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
+
 
     
 </head>

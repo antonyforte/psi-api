@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\Pacient;
 use App\Models\Sessao;
 use App\Models\Therapist;
@@ -58,6 +59,8 @@ class PacienteController extends Controller
 
 
         $pacient->save();
+
+        Session::flash('success','Paciente criado com sucesso');
 
         return redirect('/dashboard');
 
