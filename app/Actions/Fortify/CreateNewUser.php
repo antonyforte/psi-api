@@ -26,9 +26,17 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
+        
+        $num_therapists = Therapist::where('usuario', $input['name'])->count();
 
-        $therapist = new Therapist(['usuario' => $input['name']]);
-        $therapist->save();
+        if ($num_therapists == 0){
+            $therapist = new Therapist(['usuario' => $input['name']]);
+            $therapist->save();
+        }else {
+            $therapist = new Therapist(['usuario' => "{$input['name']}({$num_therapists})"]);
+            $therapist->save();
+        }
+        
 
         $user = User::create([
             'name' => $input['name'],
