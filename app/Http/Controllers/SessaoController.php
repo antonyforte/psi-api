@@ -202,7 +202,7 @@ class SessaoController extends Controller
             ];
         }
 
-        return view('results', compact('relatorios'));
+        return view('teste-is', compact('relatorios'));
     }
 
     public function showResultsII($pacient_id){

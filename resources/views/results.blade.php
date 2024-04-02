@@ -1,10 +1,13 @@
 @extends('layouts.form')
 
 @section('content')
+
     <div class="container">
         <h1 class="my-4 text-center titulo">
             <p>Inventário de Resultados</p> 
         </h1>
+
+
         <div class="d-flex justify-content-between">
             @php
                 $dataMaisAntiga = min(array_column($relatorios, 'data'));

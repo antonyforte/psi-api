@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\ChartController;
+
 use App\Http\Controllers\TerapeutaController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SessaoController;
 use App\Http\Controllers\IrController;
 use App\Http\Controllers\IsController;
 use App\Actions\Fortify\CreateNewUser; 
+
 
 
 
@@ -176,9 +179,4 @@ Route::middleware([
 
 // Rota padrão do Jetstream para o processamento do formulário de registro
 Route::post('/register', [Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'store']);
-
-
-
-
-
 
