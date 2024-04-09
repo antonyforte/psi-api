@@ -1,67 +1,56 @@
 
-@if(session('alert'))
-    <div class="alert alert-danger" role="alert">
-        Nome duplicado, algum terapeuta já esta registrado com esse nome, por favor escolher um nome diferente.
-  </div>
-@endif
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psicotech </title>
+    <!-- Include your stylesheet -->
+    <link href="{{ asset('/login-assets/styles.css')}}" rel="stylesheet">
+</head>
+<body>
+    @if(session('alert'))
+        <div class="alert alert-danger" role="alert">
+            Nome duplicado, algum terapeuta já esta registrado com esse nome, por favor escolher um nome diferente.
+        </div>
+    @endif
 
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
-
-        <x-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-2" type="radio" name="tab" class="sign-up" checked><label for="tab-2" class="tab">Sign Up</label>
+        <div class="login-form">
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <div class="sign-up-htm">
+                    <div class="group">
+                        <label for="name" class="label">Nome</label>
+                        <input id="name" type="text" class="input" name="name" :value="old('name')" required autofocus autocomplete="name">
+                    </div>
+                    <div class="group">
+                        <label for="email" class="label">Email</label>
+                        <input id="email" type="email" class="input" name="email" :value="old('email')" required autocomplete="username">
+                    </div>
+                    <div class="group">
+                        <label for="password" class="label">Senha</label>
+                        <input id="pass" type="password" class="input" data-type="password" name="password" required autocomplete="new-password"> 
+                    </div>
+                    <div class="group">
+                        <label for="password_confirmation" class="label">Confirme a senha</label>
+                        <input id="password_confirmation" type="password" class="input" name="password_confirmation" required autocomplete="new-password">
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Cadastrar">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <label for="tab-1">Already Member?</a>
+                    </div>
                 </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+            </form>
+        </div>
+    </div>
+</div>
+    
+</body>
+</html>

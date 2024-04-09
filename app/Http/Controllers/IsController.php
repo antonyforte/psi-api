@@ -22,10 +22,10 @@ class IsController extends Controller
 
         if ($is) {
             $is->update([
-                'relacaoTerapeuta' => ($validatedData['relacaoTerapeuta'] % 25 == 0 || $validatedData['relacaoTerapeuta'] == 0) ? intval($validatedData['relacaoTerapeuta'] / 25) + 1 : intval($validatedData['relacaoTerapeuta'] / 25) + 1,
-                'metasTemas' => ($validatedData['metasTemas'] % 25 == 0 || $validatedData['metasTemas'] == 0) ? intval($validatedData['metasTemas'] / 25) + 1 : intval($validatedData['metasTemas'] / 25) + 1,
-                'metodoForma' => ($validatedData['metodoForma'] % 25 == 0 || $validatedData['metodoForma'] == 0) ? intval($validatedData['metodoForma'] / 25) + 1 : intval($validatedData['metodoForma'] / 25) + 1,
-                'sessaoGlobal' => ($validatedData['sessaoGlobal'] % 25 == 0 || $validatedData['sessaoGlobal'] == 0) ? intval($validatedData['sessaoGlobal'] / 25) + 1 : intval($validatedData['sessaoGlobal'] / 25) + 1,
+                'relacaoTerapeuta' => ceil($validatedData['relacaoTerapeuta'] / 25),
+                'metasTemas' => ceil($validatedData['metasTemas'] / 25),
+                'metodoForma' => ceil($validatedData['metodoForma'] / 25),
+                'sessaoGlobal' => ceil($validatedData['sessaoGlobal'] / 25),
             ]);
             
 

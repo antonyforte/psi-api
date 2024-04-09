@@ -112,7 +112,7 @@ class SessaoController extends Controller
                 'session_id' => (int)$session->id,
                 'relacaoTerapeuta' => 0,
                 'metasTemas' => 0,
-                'metodoForma' => 2,
+                'metodoForma' => 0,
                 'sessaoGlobal' => 0,
         
             ]);
@@ -188,44 +188,69 @@ class SessaoController extends Controller
         $sessoes = Session::where('pacient_id', $pacient_id)
             ->where('therapist_id', $therapist_id)
             ->get();
-
+    
         $relatorios = [];
         foreach ($sessoes as $sessao) {
             $ir = Ir::where('session_id', $sessao->id)->first();
-
+    
+            $dataCarbon = Carbon::parse($sessao->data);
+            $dataFormatada = $dataCarbon->format('d/m/Y');
+            $dataOrdenada = $dataCarbon->format('Y-d-m'); // Alterando o formato da data para 'yyyy-dd-mm'
+            $ano = $dataCarbon->year; 
+    
             $relatorios[] = [
                 'sessao_id' => $sessao->id,
-                'data' => $sessao->data,
+                'data' => $dataOrdenada,
+                'dataFormatada' => $dataFormatada,
+                'ano' => $ano,
                 'paciente' => $sessao->pacient->nome,
                 'terapeuta' => $sessao->therapist->nome,
                 'ir' => $ir,
             ];
         }
-
-        return view('teste-is', compact('relatorios'));
+    
+        // Ordenando os relatórios por data completa
+        usort($relatorios, function($a, $b) {
+            return strtotime($a['data']) - strtotime($b['data']);
+        });
+    
+        return view('graf-acom-ir', compact('relatorios'));
     }
 
     public function showResultsII($pacient_id){
 
+        
         $therapist_id = Auth::user()->therapist_id;
         $sessoes = Session::where('pacient_id', $pacient_id)
             ->where('therapist_id', $therapist_id)
             ->get();
-
+    
         $relatorios = [];
         foreach ($sessoes as $sessao) {
             $is = Is::where('session_id', $sessao->id)->first();
-
+    
+            $dataCarbon = Carbon::parse($sessao->data);
+            $dataFormatada = $dataCarbon->format('d/m/Y');
+            $dataOrdenada = $dataCarbon->format('Y-d-m'); // Alterando o formato da data para 'yyyy-dd-mm'
+            $ano = $dataCarbon->year; 
+    
             $relatorios[] = [
                 'sessao_id' => $sessao->id,
-                'data' => $sessao->data,
+                'data' => $dataOrdenada,
+                'dataFormatada' => $dataFormatada,
+                'ano' => $ano,
                 'paciente' => $sessao->pacient->nome,
                 'terapeuta' => $sessao->therapist->nome,
                 'is' => $is,
             ];
         }
-
-        return view('resultsII', compact('relatorios'));
+    
+        // Ordenando os relatórios por data completa
+        usort($relatorios, function($a, $b) {
+            return strtotime($a['data']) - strtotime($b['data']);
+        });
+    
+        return view('graf-acom-is', compact('relatorios'));
     }
 
     public function listSessions($pacient_id){

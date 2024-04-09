@@ -21,10 +21,10 @@ class IrController extends Controller
 
         if ($ir) {
             $ir->update([
-                'individualmente' => ($validatedData['individualmente'] % 25 == 0 || $validatedData['individualmente'] == 0) ? intval($validatedData['individualmente'] / 25) + 1 : intval($validatedData['individualmente'] / 25) + 1,
-                'outrasPessoas' => ($validatedData['outrasPessoas'] % 25 == 0 || $validatedData['outrasPessoas'] == 0) ? intval($validatedData['outrasPessoas'] / 25) + 1 : intval($validatedData['outrasPessoas'] / 25) + 1,
-                'socialmente' => ($validatedData['socialmente'] % 25 == 0 || $validatedData['socialmente'] == 0) ? intval($validatedData['socialmente'] / 25) + 1 : intval($validatedData['socialmente'] / 25) + 1,
-                'resultadoGlobal' => ($validatedData['resultadoGlobal'] % 25 == 0 || $validatedData['resultadoGlobal'] == 0) ? intval($validatedData['resultadoGlobal'] / 25) + 1 : intval($validatedData['resultadoGlobal'] / 25) + 1,
+                'individualmente' => ceil($validatedData['individualmente'] / 25),
+                'outrasPessoas' => ceil($validatedData['outrasPessoas'] / 25),
+                'socialmente' => ceil($validatedData['socialmente'] / 25),
+                'resultadoGlobal' => ceil($validatedData['resultadoGlobal'] / 25),
             ]);
             
 
