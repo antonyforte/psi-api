@@ -8,18 +8,35 @@
     <title>Psicotech </title>
     <!-- Include your stylesheet -->
     <link href="{{ asset('/login-assets/styles.css')}}" rel="stylesheet">
+    
+    
 </head>
 <body>
-    @if(session('alert'))
-        <div class="alert alert-danger" role="alert">
-            Nome duplicado, algum terapeuta já esta registrado com esse nome, por favor escolher um nome diferente.
-        </div>
-    @endif
-
 <div class="login-wrap">
     <div class="login-html">
         <input id="tab-2" type="radio" name="tab" class="sign-up" checked><label for="tab-2" class="tab">Sign Up</label>
         <div class="login-form">
+            @if ($errors->any())
+            <!-- BOOTSTRAP -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+
+                                @if($error == "The email has already been taken.")
+                                    <li>E-mail ou senha incorretos</li>
+                                @elseif($error == "The password field confirmation does not match.")
+                                    <li>As senhas não conferem</li>
+                                    @elseif($error == "The password field must be at least 8 characters.")
+                                    <li>A senha precisa ter no mínimo 8 caracteres</li>
+                                @else 
+                                    <li>{{$error}}</li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="sign-up-htm">

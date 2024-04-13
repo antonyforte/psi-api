@@ -21,7 +21,7 @@ a{color:inherit;text-decoration:none}
 }
 .login-html{
 	width:100%;
-	height:100%;
+	height:104%;
 	position:absolute;
 	padding:90px 70px 50px 70px;
 	background:rgba(22, 22, 22, 0.9);
@@ -158,6 +158,19 @@ a{color:inherit;text-decoration:none}
 .foot-lnk{
 	text-align:center;
 }
+
+.alert {
+	display: flex;
+	bottom: 182px;
+	right: 485px;
+	justify-content: center;
+	width: 1380px;
+	padding: 0px;
+	padding-bottom: 0px;
+	padding-top: 10px;
+}
+
+
 
 body {
 	background-image: url('../img/background-1.jpg');
