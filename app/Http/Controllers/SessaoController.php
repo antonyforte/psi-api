@@ -204,7 +204,7 @@ class SessaoController extends Controller
                 'dataFormatada' => $dataFormatada,
                 'ano' => $ano,
                 'paciente' => $sessao->pacient->nome,
-                'terapeuta' => $sessao->therapist->nome,
+                'terapeuta' => $sessao->therapist->usuario,
                 'ir' => $ir,
             ];
         }
@@ -240,7 +240,7 @@ class SessaoController extends Controller
                 'dataFormatada' => $dataFormatada,
                 'ano' => $ano,
                 'paciente' => $sessao->pacient->nome,
-                'terapeuta' => $sessao->therapist->nome,
+                'terapeuta' => $sessao->therapist->usuario,
                 'is' => $is,
             ];
         }
