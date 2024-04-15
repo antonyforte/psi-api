@@ -128,7 +128,7 @@
                         <p>Senti que o/a terapeuta não me ouviu, não me entendeu e/ou não me respeitou.</p>
                     </div>
                     <label for="customRange1" class="form-label"></label>
-                    <input type="range" name="relacaoTerapeuta" class="custom-range-input form-range" id="customRange1" min="0" max="99" step="5">
+                    <input type="range" name="relacaoTerapeuta" class="custom-range-input form-range" id="customRange1" min="0" max="99" step="3">
                     <div class="custom-range-text-right">
                         <p>Senti que o/a terapeuta me ouviu, me entendeu e/ou me respeitou.</p>
                     </div>
@@ -145,7 +145,7 @@
                         <p>Não trabalhamos nem falamos do que eu queria trabalhar e falar.</p>
                     </div>
                     <label for="customRange2" class="form-label"></label>
-                    <input type="range" name="metasTemas" class="custom-range-input form-range" id="customRange2" min="0" max="99" step="5">
+                    <input type="range" name="metasTemas" class="custom-range-input form-range" id="customRange2" min="0" max="99" step="3">
                     <div class="custom-range-text-right">
                         <p>Trabalhamos e falamos do que eu queria trabalhar e falar.</p>
                     </div>
@@ -162,7 +162,7 @@
                         <p>Não me dei bem com a forma que o/a terapeuta usou para organizar a sessão.</p>
                     </div>
                     <label for="customRange3" class="form-label"></label>
-                    <input type="range" name="metodoForma" class="custom-range-input form-range" id="customRange3" min="0" max="99" step="5">
+                    <input type="range" name="metodoForma" class="custom-range-input form-range" id="customRange3" min="0" max="99" step="3">
                     <div class="custom-range-text-right">
                         <p>Senti-me bem com a forma do/a terapeuta organizar a sessão</p>
                     </div>
@@ -179,7 +179,7 @@
                         <p>Sinto que ficou faltando alguma coisa na sessão de hoje.</p>
                     </div>
                     <label for="customRange4" class="form-label"></label>
-                    <input type="range" name="sessaoGlobal" class="custom-range-input form-range" id="customRange4" min="0" max="99" step="5">
+                    <input type="range" name="sessaoGlobal" class="custom-range-input form-range" id="customRange4" min="0" max="99" step="3">
                     <div class="custom-range-text-right">
                         <p>De maneira geral, a sessão de hoje foi boa para mim.</p>
                     </div>

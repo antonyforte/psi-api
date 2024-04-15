@@ -103,7 +103,7 @@
                     <h4>(Bem-estar pessoal)</h4>
                 </div>
                 <label for="customRange1" class="form-label"></label>
-                <input type="range" name="individualmente" class="custom-range-input form-range" id="customRange1" min="0" max="99" step="5">
+                <input type="range" name="individualmente" class="custom-range-input form-range" id="customRange1" min="0" max="99" step="3">
             </div>
 
             <!-- Slider 2 -->
@@ -113,7 +113,7 @@
                     <h4>(Família, relações próximas)</h4>
                 </div>
                 <label for="customRange2" class="form-label"></label>
-                <input type="range" name="outrasPessoas" class="custom-range-input form-range" id="customRange2" min="0" max="99" step="5">
+                <input type="range" name="outrasPessoas" class="custom-range-input form-range" id="customRange2" min="0" max="99" step="3">
             </div>
 
             <!-- Slider 3 -->
@@ -123,7 +123,7 @@
                     <h4>(Trabalho, Escola, Amizades)</h4>
                 </div>
                 <label for="customRange3" class="form-label"></label>
-                <input type="range" name="socialmente" class="custom-range-input form-range" id="customRange3" min="0" max="99" step="5">
+                <input type="range" name="socialmente" class="custom-range-input form-range" id="customRange3" min="0" max="99" step="3">
             </div>
 
             <!-- Slider 4 -->
@@ -133,7 +133,7 @@
                     <h4>(Sentimento geral de bem-estar)</h4>
                 </div>
                 <label for="customRange4" class="form-label"></label>
-                <input type="range" name="resultadoGlobal" class="custom-range-input form-range" id="customRange4" min="0" max="99" step="5">
+                <input type="range" name="resultadoGlobal" class="custom-range-input form-range" id="customRange4" min="0" max="99" step="3">
             </div>
         </div>
         <div class="custom-btn">

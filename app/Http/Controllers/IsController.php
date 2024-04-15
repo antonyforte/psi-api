@@ -11,10 +11,10 @@ class IsController extends Controller
     {
         $validatedData = $request->validate([
             'session_id' => 'required|integer',
-            'relacaoTerapeuta' => 'required|integer|min:0|max:100',
-            'metasTemas' => 'required|integer|min:0|max:100',
-            'metodoForma' => 'required|integer|min:0|max:100',
-            'sessaoGlobal' => 'required|integer|min:0|max:100',
+            'relacaoTerapeuta' => 'required|integer|min:0|max:99',
+            'metasTemas' => 'required|integer|min:0|max:99',
+            'metodoForma' => 'required|integer|min:0|max:99',
+            'sessaoGlobal' => 'required|integer|min:0|max:99',
         ]);
         
 
@@ -22,10 +22,10 @@ class IsController extends Controller
 
         if ($is) {
             $is->update([
-                'relacaoTerapeuta' => ceil($validatedData['relacaoTerapeuta'] / 25),
-                'metasTemas' => ceil($validatedData['metasTemas'] / 25),
-                'metodoForma' => ceil($validatedData['metodoForma'] / 25),
-                'sessaoGlobal' => ceil($validatedData['sessaoGlobal'] / 25),
+                'relacaoTerapeuta' => max(1,ceil($validatedData['relacaoTerapeuta'] / 25)),
+                'metasTemas' => max(1,ceil($validatedData['metasTemas'] / 25)),
+                'metodoForma' => max(1,ceil($validatedData['metodoForma'] / 25)),
+                'sessaoGlobal' => max(1,ceil($validatedData['sessaoGlobal'] / 25)),
             ]);
             
 
