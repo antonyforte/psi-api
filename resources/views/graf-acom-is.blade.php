@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Psicotech</title>
+    <title>Psicotec</title>
     <link href="{{ asset('/graph-table/styles.css')}}" rel="stylesheet">
 </head>
 <body>

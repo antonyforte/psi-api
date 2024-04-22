@@ -1,4 +1,5 @@
 @extends('layouts.form')
+
 <style>
     body {
         background-color: #f8f9fa;
@@ -26,28 +27,32 @@
         display: flexbox;
     }
 </style>
+
 </head>
 <body>
 
 <div class="container">
-<h1 class="mt-4 mb-4">Links dos Inventários</h1>
+    <h1 class="mt-4 mb-4">Links dos Inventários</h1>
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Inventário de Resultados:</h5>
-        <p class="card-text"><a href="{{ route('ir.show', ['session_id' => $ir->session_id, 'token' => $token]) }}">{{ route('ir.show', ['session_id' => $ir->session_id, 'token' => $token]) }}</a></p>
+    @foreach($is as $key => $session_is)
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Inventário de Resultados para Sessão {{ $key+1 }}:</h5>
+            <p class="card-text"><a href="{{ route('ir.show', ['session_id' => $ir[$key]->session_id, 'token' => $token[$key]]) }}">{{ route('ir.show', ['session_id' => $ir[$key]->session_id, 'token' => $token[$key]]) }}</a></p>
+        </div>
     </div>
-</div>
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Inventário de Sessão:</h5>
-        <p class="card-text"><a href="{{ route('is.show', ['session_id' => $is->session_id, 'token' => $token]) }}">{{ route('is.show', ['session_id' => $is->session_id, 'token' => $token]) }}</a></p>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Inventário de Sessão para Sessão {{ $key+1 }}:</h5>
+            <p class="card-text"><a href="{{ route('is.show', ['session_id' => $is[$key]->session_id, 'token' => $token[$key]]) }}">{{ route('is.show', ['session_id' => $is[$key]->session_id, 'token' => $token[$key]]) }}</a></p>
+        </div>
     </div>
-</div>
-<div class="bt-foot">
-    <a href="/dashboard"> 
-        <button type="button" class="btn btn-custom" disabled> < Dashboard</button>
-    </a>
-</div>
+    @endforeach
+
+    <div class="bt-foot">
+        <a href="/dashboard"> 
+            <button type="button" class="btn btn-custom" disabled> < Dashboard</button>
+        </a>
+    </div>
 </div>

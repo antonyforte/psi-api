@@ -48,7 +48,7 @@
         color: #28a745;
     }
 
-    .selected-paciente{
+    .selected-paciente {
         margin-left: 40px;
     }
 
@@ -68,27 +68,31 @@
                     <h1 class="mb-0">Nova Sessão</h1>
                 </div>
                 <div class="card-body">
-                    <form action="/dashboard/sessoes/register" method="POST">
+                    <form action="/dashboard/sessoes/register" method="POST" id="sessionForm">
                         @csrf
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1" class="form-label">Paciente</label>
-                            <div class="d-flex">
-                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ $nome }}" readonly disabled>
-                        
-                                <input type="hidden" name="paciente_id" value="{{ $xtid }}">
-                        
-                                <div class="selected-paciente">
-                                    ID do Paciente: <span class="id-badge" id="selectedPacienteId">{{ $xtid }}</span>
+                        <div id="sessionFields">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Paciente</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ $nome }}" readonly disabled>
+
+                                    <input type="hidden" name="paciente_id[]" value="{{ $xtid }}">
+
+                                    <div class="selected-paciente">
+                                        ID do Paciente: <span class="id-badge" id="selectedPacienteId">{{ $xtid }}</span>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputDate">Data da Sessão:</label>
+                                <input type="datetime-local" class="form-control" name="date[]" required>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="exampleInputDate">Data da Sessão:</label>
-                            <input type="datetime-local" class="form-control" id="date" name="date" required>
-                        </div>
+
                         <div class="text-end">
-                            <input type="submit" class="btn btn-success" value="Salvar" id="submitBtn">
+                            <button type="button" class="btn btn-success" onclick="addSession()">Adicionar Sessão</button>
+                            <input type="submit" class="btn btn-success" value="Salvar Todas">
                         </div>
                     </form>
                 </div>
@@ -96,7 +100,7 @@
         </div>
     </div>
     <div class="bt-foot">
-        <a href="/dashboard"> 
+        <a href="/dashboard">
             <button type="button" class="btn btn-custom" disabled>< Voltar</button>
         </a>
     </div>
@@ -107,15 +111,37 @@
         // Obtem o ID selecionado e atualiza o campo
         var selectedPacienteId = selectElement.value;
         document.getElementById('selectedPacienteId').innerText = selectedPacienteId;
-
-        var submitBtn = document.getElementById('submitBtn');
-        
     }
 
     function setDefaultDateTime() {
-        var dateInput = document.getElementById('date');
-        var now = new Date().toISOString().slice(0,16);
-        dateInput.value = now;
+        var dateInputs = document.getElementsByName('date[]');
+        var now = new Date().toISOString().slice(0, 16);
+        for (var i = 0; i < dateInputs.length; i++) {
+            dateInputs[i].value = now;
+        }
+    }
+
+    function addSession() {
+        var sessionFields = document.getElementById('sessionFields');
+        var newSessionField = document.createElement('div');
+        newSessionField.classList.add('form-group');
+
+        newSessionField.innerHTML = `
+            <label for="exampleFormControlInput1" class="form-label">Paciente</label>
+            <div class="d-flex">
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ $nome }}" readonly disabled>
+                <input type="hidden" name="paciente_id[]" value="{{ $xtid }}">
+                <div class="selected-paciente">
+                    ID do Paciente: <span class="id-badge" id="selectedPacienteId">{{ $xtid }}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputDate">Data da Sessão:</label>
+                <input type="datetime-local" class="form-control" name="date[]" required>
+            </div>
+        `;
+        sessionFields.appendChild(newSessionField);
+        setDefaultDateTime();
     }
 
     setDefaultDateTime();

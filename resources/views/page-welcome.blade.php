@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Psicotech</title>
+  <title>Psicotec</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -38,7 +38,7 @@
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
       <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
-        <h1>Psicotech</h1>
+        <h1>Psicotec</h1>
         <span style="display: inline-block; width: 30px; height: 30px;">
             <img src="{{asset('img/psicologia.png')}}" alt="Very Small Image" style="width: 100%; height: 100%; padding-bottom: 5px; padding-left: 3px">
         </span>

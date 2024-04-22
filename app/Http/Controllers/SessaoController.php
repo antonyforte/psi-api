@@ -88,42 +88,57 @@ class SessaoController extends Controller
         $secret_key = "Whatisneededtochangeapersonistochangetheirawarenessofthemselves";
         return hash_hmac('sha256',$session_id,$secret_key);
     }
-    public function store(Request $request){
-        $session = new Session;
-
-        $session->pacient_id = $request->paciente_id;
-        $d = Carbon::createFromFormat('Y-m-d\TH:i',$request->date)->toDateTimeString();
-        $session->data = $d;
-        $session->therapist_id = Auth::user()->therapist_id;
-
-        $session->save();
-
-        $paciente = Pacient::find($request->paciente_id);
-        if ($paciente) {
-            $ir = Ir::create([
-                'session_id' => (int)$session->id,
-                'individualmente' => 0,
-                'outrasPessoas' => 0,
-                'socialmente' => 0,
-                'resultadoGlobal' => 0,
-            ]);
-
-            $is = Is::create([
-                'session_id' => (int)$session->id,
-                'relacaoTerapeuta' => 0,
-                'metasTemas' => 0,
-                'metodoForma' => 0,
-                'sessaoGlobal' => 0,
-        
-            ]);
-
-
-            $token = $this->generateSecureToken($session->id);
-            return view('links', ['is' => $is, 'ir' => $ir, 'token' => $token]);
-        } else {
-            abort(404);
+    public function store(Request $request) {
+        $paciente_ids = $request->paciente_id;
+        $dates = $request->date;
+        $allIs = [];
+        $allIr = [];
+        $allTokens = [];
+    
+        foreach ($paciente_ids as $key => $paciente_id) {
+            $session = new Session;
+    
+            $session->pacient_id = $paciente_id;
+            $d = Carbon::createFromFormat('Y-m-d\TH:i', $dates[$key])->toDateTimeString();
+            $session->data = $d;
+            $session->therapist_id = Auth::user()->therapist_id;
+    
+            $session->save();
+    
+            $paciente = Pacient::find($paciente_id);
+            if ($paciente) {
+                $ir = Ir::create([
+                    'session_id' => (int)$session->id,
+                    'individualmente' => 0,
+                    'outrasPessoas' => 0,
+                    'socialmente' => 0,
+                    'resultadoGlobal' => 0,
+                ]);
+    
+                $is = Is::create([
+                    'session_id' => (int)$session->id,
+                    'relacaoTerapeuta' => 0,
+                    'metasTemas' => 0,
+                    'metodoForma' => 0,
+                    'sessaoGlobal' => 0,
+                ]);
+    
+                $token = $this->generateSecureToken($session->id);
+    
+                // Armazenando os dados de cada sessão
+                $allIr[] = $ir;
+                $allIs[] = $is;
+                $allTokens[] = $token;
+                
+            } else {
+                abort(404);
+            }
         }
+        
+        // Retorno da view fora do loop
+        return view('links', ['is' => $allIs, 'ir' => $allIr, 'token' => $allTokens]);
     }
+    
 
     public function irshow(Request $request) {
         $session_id = $request->query('session_id');
