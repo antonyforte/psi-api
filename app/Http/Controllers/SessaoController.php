@@ -125,7 +125,6 @@ class SessaoController extends Controller
     
                 $token = $this->generateSecureToken($session->id);
     
-                // Armazenando os dados de cada sessão
                 $allIr[] = $ir;
                 $allIs[] = $is;
                 $allTokens[] = $token;
@@ -135,7 +134,6 @@ class SessaoController extends Controller
             }
         }
         
-        // Retorno da view fora do loop
         return view('links', ['is' => $allIs, 'ir' => $allIr, 'token' => $allTokens]);
     }
     
@@ -210,7 +208,7 @@ class SessaoController extends Controller
     
             $dataCarbon = Carbon::parse($sessao->data);
             $dataFormatada = $dataCarbon->format('d/m/Y');
-            $dataOrdenada = $dataCarbon->format('Y-d-m'); // Alterando o formato da data para 'yyyy-dd-mm'
+            $dataOrdenada = $dataCarbon->format('Y-m-d'); // Alterando o formato da data para 'yyyy-dd-mm'
             $ano = $dataCarbon->year; 
     
             $relatorios[] = [
@@ -228,6 +226,7 @@ class SessaoController extends Controller
         usort($relatorios, function($a, $b) {
             return strtotime($a['data']) - strtotime($b['data']);
         });
+
     
         return view('graf-acom-ir', compact('relatorios'));
     }
@@ -246,7 +245,7 @@ class SessaoController extends Controller
     
             $dataCarbon = Carbon::parse($sessao->data);
             $dataFormatada = $dataCarbon->format('d/m/Y');
-            $dataOrdenada = $dataCarbon->format('Y-d-m'); // Alterando o formato da data para 'yyyy-dd-mm'
+            $dataOrdenada = $dataCarbon->format('Y-m-d'); // Alterando o formato da data para 'yyyy-dd-mm'
             $ano = $dataCarbon->year; 
     
             $relatorios[] = [
