@@ -72,7 +72,7 @@
         <div class="row">
           <div class="col-lg-10">
             <h2 data-aos="fade-up" data-aos-delay="100">Gerencie suas sessões</h2>
-            <p data-aos="fade-up" data-aos-delay="200">"Os sonhos são um reflexo de processos inconscientes." Freud</p>
+            <p data-aos="fade-up" data-aos-delay="200">"A maior descoberta de todos os tempos é que uma pessoa pode mudar sua vida simplesmente mudando sua atitude mental." - William James</p>
           </div>
         </div>
       </div>
